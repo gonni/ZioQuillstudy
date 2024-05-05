@@ -1,6 +1,6 @@
 ThisBuild / version := "0.1.0-SNAPSHOT"
 
-ThisBuild / scalaVersion := "2.13.12"
+ThisBuild / scalaVersion := "3.4.1"
 
 lazy val root = (project in file("."))
   .settings(
@@ -8,9 +8,9 @@ lazy val root = (project in file("."))
   )
 
 libraryDependencies ++= Seq(
-  "dev.zio"       %% "zio"                 % "2.0.19",
+  "dev.zio" %% "zio" % "2.1.0-RC3",
   "dev.zio"       %% "zio-json"            % "0.6.2",
-  "dev.zio"       %% "zio-http"            % "3.0.0-RC2",
+  "dev.zio"       %% "zio-http"            % "3.0.0-RC6",
   "io.getquill"   %% "quill-zio"           % "4.8.0",
   "io.getquill"   %% "quill-jdbc-zio"      % "4.8.0",
   "com.h2database" % "h2"                  % "2.2.224",

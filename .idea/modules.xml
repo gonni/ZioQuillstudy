@@ -3,7 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/ZioQuillStudy.iml" filepath="$PROJECT_DIR$/.idea/modules/ZioQuillStudy.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/ZioQuillStudy-build.iml" filepath="$PROJECT_DIR$/.idea/modules/ZioQuillStudy-build.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/ZioQuillStudy.ZioQuillStudy-build.iml" filepath="$PROJECT_DIR$/.idea/modules/ZioQuillStudy.ZioQuillStudy-build.iml" />
     </modules>
   </component>
 </project>
