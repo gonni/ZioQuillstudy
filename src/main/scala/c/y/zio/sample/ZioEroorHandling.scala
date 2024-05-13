@@ -28,13 +28,14 @@ class ZioEroorHandling extends ZIOAppDefault {
   // effectfully catch error
   val catchError: ZIO[Any, Throwable, Any] =
     anAttempt.catchAll(a => ZIO.attempt(s"Returning a different value because $a"))
+
   val catchServiceErrors: ZIO[Any, Throwable, Any] = anAttempt.catchSome {
     case e: RuntimeException => ZIO.succeed(s"Ignoring runtime excep[tion: $e")
     case _ => ZIO.succeed("Ignoring everything else")
   }
 
   // chain effects
-  val aBetterAttempt: ZIO[Any, Nothing, RuntimeFlags] = anAttempt.orElse(ZIO.succeed(56))
+  val aBetterAttempt: ZIO[Any, Nothing, Int] = anAttempt.orElse(ZIO.succeed(56))
 
   val handleBoth: URIO[Any, String] = anAttempt.fold(ex => s"Something bad happends: $ex", value => s"Length of the string was $value")
 
@@ -43,14 +44,14 @@ class ZioEroorHandling extends ZIOAppDefault {
     value => ZIO.succeed(s"Length of the string was $value")
   )
 
-  val aTryToZIO: Task[RuntimeFlags] = ZIO.fromTry(Try(4 / 0))
+  val aTryToZIO: Task[Int] = ZIO.fromTry(Try(4 / 0))
 
   val anEither: Either[Int, String] = Right("Success!")
   val anEitherToZIO: ZIO[Any, Int, String] = ZIO.fromEither(anEither)
   // ZIO -> ZIO with Either as the value channel
-  val eitherZIO = anAttempt.either
+  val eitherZIO: URIO[Any, Either[Throwable, Int]] = anAttempt.either
 
-  val anAttempt_ve = eitherZIO.absolve
+  val anAttempt_ve: ZIO[Any, Throwable, Int] = eitherZIO.absolve
 
   //option -> ZIO
   val anOption: ZIO[Any, Option[Nothing], Int] = ZIO.fromOption(Some(42))
@@ -117,21 +118,22 @@ class ZioEroorHandling extends ZIOAppDefault {
   def callHTTPEndpopintWideError(url:String): ZIO[Any, Exception, String] =
     ZIO.fail(new IOException("No internet"))
 
+  //refine
   def callHttpEndpoiting_v2(url: String): ZIO[Any, IOException, String] =
     callHTTPEndpopintWideError(url).refineOrDie[IOException] {
       case e: IOException => e
       case _: NoRouteToHostException => new IOException(s"No route to host to $url, can't fetch page")
     }
 
-  //reverse
-  val endpointCallWithError = endpointCollWithDefects.unrefine{
+  //unrefine - reverse
+  val endpointCallWithError: ZIO[Any, String, String] = endpointCollWithDefects.unrefine{
     case e => e.getMessage
   }
 
   // Exercises
-  val aBadFailures = ZIO.succeed[Int](throw new RuntimeException("this is bad!"))
-  val aBetterFailure = aBadFailures.sandbox
-  val aBetterFailure_v2 = aBetterFailure.unrefine {
+  val aBadFailures: ZIO[Any, Nothing, Int] = ZIO.succeed[Int](throw new RuntimeException("this is bad!"))
+  val aBetterFailure: ZIO[Any, Cause[Nothing], Int] = aBadFailures.sandbox
+  val aBetterFailure_v2: ZIO[Any, Serializable, Int] = aBetterFailure.unrefine {
     case ioe: IOException => ioe
   }
 
