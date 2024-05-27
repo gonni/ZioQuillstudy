@@ -19,3 +19,5 @@ libraryDependencies ++= Seq(
   "dev.zio"       %% "zio-config-typesafe" % "4.0.0-RC16",
   "dev.zio"       %% "zio-config-magnolia" % "4.0.0-RC16"
 )
+
+libraryDependencies += "org.typelevel" %% "cats-core" % "2.10.0"

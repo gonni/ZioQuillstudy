@@ -1,9 +1,9 @@
-package c.y.zio.db
+package c.y.zio.server
 
-import zio._
-import zio.http.{HttpApp, Routes, handler, int, _}
-import zio.config.typesafe._
-import zio.json._
+import zio.*
+import zio.config.typesafe.*
+import zio.http.*
+import zio.json.*
 
 object HelloServer extends ZIOAppDefault {
 
@@ -21,16 +21,16 @@ object HelloServer extends ZIOAppDefault {
         }.sandbox,
       Method.GET / "x" ->
         Handler.fromResponseZIO(Random.nextUUID.map(u => Response.text(u.toString))),
-      Method.GET / "j" / int("userId") -> {
+      Method.GET / "Orange" / int("userId") -> {
         Handler.fromFunction[(Int, Request)] { case (userId: Int, request: Request) =>
           Response.json(
             Map(
               "user" -> userId.toString,
-              "correlationId" -> request.headers.get("X-Correlation_ID").get,
+//              "correlationId" -> request.headers.get("X-Correlation_ID").get,
             ).toJsonPretty
           )
         } // *> Handler.fail(new Error("XXX"))
-      }
+      }.sandbox
     ).toHttpApp
 
   override val bootstrap: ZLayer[ZIOAppArgs, Any, Any] =
