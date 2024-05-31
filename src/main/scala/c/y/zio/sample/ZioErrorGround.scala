@@ -53,8 +53,58 @@ object ZioErrorGround extends ZIOAppDefault {
           ZIO.fail(Some(s"invalid non-integer input: $input"))
     }
 
+
+  def isPrime(n: Int): Boolean =
+    if (n <= 1) false else (2 until n).forall(i => n % i != 0)
+
+  def findPrimeBetween(
+                        minInclusive: Int,
+                        maxExclusive: Int
+                      ): ZIO[Any, List[String], Int] =
+    for {
+      errors <- Ref.make(List.empty[String])
+      number <- Random
+        .nextIntBetween(minInclusive, maxExclusive)
+        .reject {
+          case n if !isPrime(n) =>
+            s"non-prime number rejected: $n"
+        }
+        .flatMapError(error => errors.updateAndGet(_ :+ error))
+        .retryUntil(_.length >= 5)
+    } yield number
+
+  val myApp3: ZIO[Any, Nothing, Unit] =
+    findPrimeBetween(1000, 10000)
+      .flatMap(prime => Console.printLine(s"found a prime number: $prime").orDie)
+      .catchAll { (errors: List[String]) =>
+        Console.printLine(
+          s"failed to find a prime number after 5 attempts:\n  ${errors.mkString("\n  ")}"
+        )
+      }
+      .orDie
+
+  val evens: ZIO[Any, List[String], List[Int]] =
+    ZIO.validate(List(1, 2, 3, 4, 5)) { n =>
+      if (n % 2 == 0)
+        ZIO.succeed(n)
+      else
+        ZIO.fail(s"$n is not even")
+    }
+
+  val r1: ZIO[Any, List[String], List[Int]] = evens.mapError(_.reverse)
+  val r2: ZIO[Any, List[String], List[Int]] = evens.flip.map(_.reverse).flip
+  val r3: ZIO[Any, List[String], List[Int]] = evens.flipWith(_.map(_.reverse))
+
   override def run: ZIO[Any with ZIOAppArgs with Scope, Any, Any] =
-    parseInt("1").orElseOptional(ZIO.succeed(0)).debug
+    Random
+    .nextIntBounded(20)
+    .reject {
+      case n if n % 2 == 0 => s"even number rejected: $n"
+      case 5               => "number 5 was rejected"
+    }
+    .debug
+
+//    parseInt("1").orElseOptional(ZIO.succeed(0)).debug
 //    validate(3).orElseSucceed(100).debug
 
 
