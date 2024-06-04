@@ -17,7 +17,17 @@ libraryDependencies ++= Seq(
   "mysql" % "mysql-connector-java" % "8.0.27",
   "dev.zio"       %% "zio-config"          % "4.0.0-RC16",
   "dev.zio"       %% "zio-config-typesafe" % "4.0.0-RC16",
-  "dev.zio"       %% "zio-config-magnolia" % "4.0.0-RC16"
+  "dev.zio"       %% "zio-config-magnolia" % "4.0.0-RC16",
+  "dev.zio"       %% "zio-logging"       % "2.1.15",
+  "dev.zio"       %% "zio-logging-slf4j" % "2.1.15",
+  "org.slf4j"      % "slf4j-simple"      % "2.0.9"
 )
+
+
+// SLF4j v2 integration
+//libraryDependencies += "dev.zio" %% "zio-logging-slf4j2" % "2.3.0"
+//// Using ZIO Logging for SLF4j v2 loggers, usually third-party non-ZIO libraries
+//libraryDependencies += "dev.zio" %% "zio-logging-slf4j2-bridge" % "2.3.0"
+//libraryDependencies += "dev.zio" %% "zio-logging-jul-bridge" % "2.3.0"
 
 libraryDependencies += "org.typelevel" %% "cats-core" % "2.10.0"

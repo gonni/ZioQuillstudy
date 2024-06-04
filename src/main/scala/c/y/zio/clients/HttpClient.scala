@@ -19,7 +19,8 @@ object Todo {
 object HttpClient extends ZIOAppDefault{
   val program: ZIO[Client & Scope, Throwable, Unit] =
     for {
-      res <- Client.request(Request.get("http://jsonplaceholder.typicode.com/todos"))
+      // http://jsonplaceholder.typicode.com/todos
+      res <- Client.request(Request.get("http://localhost:8080/users"))
       data <- res.body.asString
       _ <- Console.printLine(s"Response String -> ${data}")
 //      todos <- res.body.to[List[Todo]]

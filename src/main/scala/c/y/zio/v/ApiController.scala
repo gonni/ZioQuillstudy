@@ -6,6 +6,8 @@ import zio.schema.codec.JsonCodec.schemaBasedBinaryCodec
 
 object ApiController {
 
+  import CustomMiddleware._
+
   def apply(): Routes[UserRepo, Response] = Routes(
     Method.POST / "users" -> handler { (req: Request) =>
       for{
@@ -40,15 +42,17 @@ object ApiController {
     },
 
     Method.GET / "users" -> handler {
-      UserRepo.users.mapBoth(
-        e => {
-          println("Error Detected in user all")
-          e.printStackTrace()
-          Response.internalServerError("Cannot retrieve users!")
-        },
-        users => Response(body = Body.from(users))
-      )
-    }
-
-  )
+      for {
+        _ <- ZIO.logInfo("[FOR-LOG] R`equest All Users")
+        user <-  UserRepo.users.mapBoth(
+              e => {
+              println ("Error Detected in user all")
+              e.printStackTrace ()
+              Response.internalServerError ("Cannot retrieve users!")
+              } ,
+              users => Response(body = Body.from(users))
+        )
+      } yield user
+    } //@@ logSpan("span-all-users")
+  ) @@ logAnnotateCorrelationId
 }

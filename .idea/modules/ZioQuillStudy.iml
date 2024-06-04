@@ -48,6 +48,9 @@
     <orderEntry type="library" name="sbt: dev.zio:zio-http_3:3.0.0-RC6:jar" level="project" />
     <orderEntry type="library" name="sbt: dev.zio:zio-internal-macros_3:2.1.0-RC3:jar" level="project" />
     <orderEntry type="library" name="sbt: dev.zio:zio-json_3:0.6.2:jar" level="project" />
+    <orderEntry type="library" name="sbt: dev.zio:zio-logging-slf4j_3:2.1.15:jar" level="project" />
+    <orderEntry type="library" name="sbt: dev.zio:zio-logging_3:2.1.15:jar" level="project" />
+    <orderEntry type="library" name="sbt: dev.zio:zio-parser_3:0.1.9:jar" level="project" />
     <orderEntry type="library" name="sbt: dev.zio:zio-prelude-macros_3:1.0.0-RC21:jar" level="project" />
     <orderEntry type="library" name="sbt: dev.zio:zio-prelude_3:1.0.0-RC21:jar" level="project" />
     <orderEntry type="library" name="sbt: dev.zio:zio-schema-derivation_3:1.1.0:jar" level="project" />
@@ -105,7 +108,8 @@
     <orderEntry type="library" name="sbt: org.scalameta:scalafmt-sysops_2.13:3.7.14:jar" level="project" />
     <orderEntry type="library" name="sbt: org.scalameta:scalameta_2.13:4.8.10:jar" level="project" />
     <orderEntry type="library" name="sbt: org.scalameta:trees_2.13:4.8.10:jar" level="project" />
-    <orderEntry type="library" name="sbt: org.slf4j:slf4j-api:1.7.36:jar" level="project" />
+    <orderEntry type="library" name="sbt: org.slf4j:slf4j-api:2.0.9:jar" level="project" />
+    <orderEntry type="library" name="sbt: org.slf4j:slf4j-simple:2.0.9:jar" level="project" />
     <orderEntry type="library" name="sbt: org.typelevel:cats-core_3:2.10.0:jar" level="project" />
     <orderEntry type="library" name="sbt: org.typelevel:cats-kernel_3:2.10.0:jar" level="project" />
     <orderEntry type="library" name="sbt: org.typelevel:paiges-core_2.13:0.4.2:jar" level="project" />
