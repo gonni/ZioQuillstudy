@@ -54,5 +54,5 @@ object ApiController {
         )
       } yield user
     } //@@ logSpan("span-all-users")
-  ) @@ logAnnotateCorrelationId
+  ) @@ whitelistMiddleware
 }

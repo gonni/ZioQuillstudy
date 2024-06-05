@@ -68,4 +68,18 @@ object CustomMiddleware {
       }
     }
 
+  val whitelistMiddleware: HandlerAspect[Any, Unit] =
+    HandlerAspect.interceptIncomingHandler {
+      val whitelist = Set("127.0.0.1", "0.0.0.0")
+      Handler.fromFunctionZIO[Request] { request =>
+        request.headers.get("X-Real-IP") match {
+          case Some(host) if whitelist.contains(host) =>
+            ZIO.succeed((request, ()))
+          case _ =>
+            ZIO.fail(Response.text(s"Your IP:${request.headers.get("X-Real-IP")} " +
+              s"is banned from accessing the server."))
+        }
+      }
+    }
+
 }
