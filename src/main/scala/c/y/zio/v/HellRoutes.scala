@@ -7,12 +7,14 @@ import java.util.Date
 
 object HellRoutes {
   
-  def apply(): Routes[Any, Response] =
+  def apply(): Routes[Any, Response] = {
     Routes(
       Method.GET / "hell" -> handler { (req: Request) =>
-        ZIO.succeed(
-          Response.text("hella at " + new Date())
-        )
+        for {
+          _ <- ZIO.logInfo("Detect Hell Request ..")
+          res <- ZIO.succeed(Response.text("hella at " + new Date()))
+        } yield res
       }
     )
+  } @@ Middleware.basicAuth("hell", "pw")
 }
