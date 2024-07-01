@@ -48,6 +48,7 @@ object FutureRecovery {
 
     res.recover(e => {
       e.printStackTrace()
+      "New Future Result"
     }).foreach(m => {
       println("1. result unit =>" + m)
     })
