@@ -1,0 +1,27 @@
+POST https://openapi.koreainvestment.com:9443/oauth2/Approval
+content-type: application/json; charset=utf-8
+
+{
+  "grant_type": "client_credentials",
+  "appkey": "PSa6xp8AJLOIcatUqo7PSDabKsjDVV4Iz411",
+  "secretkey": "OZRhVyWipBI9b6MvkAkD6EDFNwU+b3lWGWUXSTkKTya5yBQL/yoO+dwUjaeysCJyYBVSAdQSQ6TZSCvqP/hr4nCqukR6KFBRXyeJeyv05+EZGZPtMUg+malR6PntT05Y3pgQKbIQKcoSPH6DGpcNy7JX65l3SepFEwad9BLEWf1NhCXgXF8="
+}
+
+###
+POST https://openapi.koreainvestment.com:9443/oauth2/tokenP
+content-type: application/json; charset=utf-8
+
+{
+"grant_type": "client_credentials",
+"appkey": "PSa6xp8AJLOIcatUqo7PSDabKsjDVV4Iz411",
+"appsecret": "OZRhVyWipBI9b6MvkAkD6EDFNwU+b3lWGWUXSTkKTya5yBQL/yoO+dwUjaeysCJyYBVSAdQSQ6TZSCvqP/hr4nCqukR6KFBRXyeJeyv05+EZGZPtMUg+malR6PntT05Y3pgQKbIQKcoSPH6DGpcNy7JX65l3SepFEwad9BLEWf1NhCXgXF8="
+}
+
+###
+GET https://openapi.koreainvestment.com:9443/uapi/domestic-stock/v1/quotations/foreign-institution-total?FID_COND_MRKT_DIV_CODE=V&FID_COND_SCR_DIV_CODE=16449&FID_INPUT_ISCD=1001&FID_DIV_CLS_CODE=1&FID_RANK_SORT_CLS_CODE=0&FID_ETC_CLS_CODE=0
+content-type: application/json; charset=utf-8
+authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0b2tlbiIsImF1ZCI6IjAwM2QwNGZmLWVjZjItNDIxMC1iNGRjLWVlNDdmYmNlYzc0ZSIsInByZHRfY2QiOiIiLCJpc3MiOiJ1bm9ndyIsImV4cCI6MTcyMDkyODI1MiwiaWF0IjoxNzIwODQxODUyLCJqdGkiOiJQU2E2eHA4QUpMT0ljYXRVcW83UFNEYWJLc2pEVlY0SXo0MTEifQ.CLoVvFpK_bxEcBLM_1_-ruMR__G57Rd6VIaZxD81CeBzpOj-msDh3-tNxBmXQjc_XRvYwW2nECpZewkbpUoAFA
+appkey: PSa6xp8AJLOIcatUqo7PSDabKsjDVV4Iz411
+appsecret: OZRhVyWipBI9b6MvkAkD6EDFNwU+b3lWGWUXSTkKTya5yBQL/yoO+dwUjaeysCJyYBVSAdQSQ6TZSCvqP/hr4nCqukR6KFBRXyeJeyv05+EZGZPtMUg+malR6PntT05Y3pgQKbIQKcoSPH6DGpcNy7JX65l3SepFEwad9BLEWf1NhCXgXF8=
+tr_id: FHPTJ04400000
+custtype: P
